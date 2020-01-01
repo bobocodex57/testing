@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Gram to KPY</title>
+
+	<style type="text/css">
+		html{
+			background-image: linear-gradient(rgba(200,200,200,0), rgba(200,200,200,0)), url(g5.jpg);
+			background-size: 1366px 720px;
+			background-repeat: no-repeat;
+			
+		}
+		#Form {
+			display: block;
+			font-family: garamond;
+			width: 400px; 
+      		margin: 10px 40px; 
+			font-size: 20px;
+			/*background-color: gray;*/
+			/*opacity: 0.1;*/
+		}
+		label { 
+			text-align: left;
+			float: left; 
+			width: 100px; 
+		}	
+		input[type=number]{
+			background-color: white;
+			border: 5px solid white;
+			border-radius: 5px;	
+		}
+		input[type=number]:focus{
+			background-color: #CCFFFF;
+			border: 5px solid #CCFFFF;
+			border-radius: 5px;	
+		}
+		.heading {
+			/*text-align: left;*/
+			font-style: italic;	
+			/*background-color: blue;*/
+			color: black;
+			/* padding: 10px 0px 10px 0px; */
+			margin: 0;
+			float: center; 
+			width:450px; 	
+		}
+		.box {
+			text-align: center;
+			/*background-color: green;*/
+			color: black;
+			padding: 1px 1px 1px 0px;
+			margin: 0;
+		}
+		#result {
+			/*padding: 0px 1px 1px 0px;*/
+			float: center; 
+			width: 465px; 
+		}
+		#presult {
+			/*padding: 0px 1px 1px 0px;*/
+			float: center; 
+			width: 455px; 
+		}
+		#yresult {
+			/*padding: 0px 1px 1px 0px;*/
+			float: center; 
+			width: 445px; 
+		}
+
+
+		.Button{
+			text-align: center;
+			/*float: left; */
+			width: 600px;
+			color: black;
+			padding: 5px 0px 5px 0px;
+			margin: 0;
+		}
+	</style>
+
+	<script type="text/javascript">
+		var kprice;// = 1200000;
+
+		var pprice;
+		var yprice;
+		var total;
+		var data;
+		var flag = 0;
+
+		function update(){
+			// kprice = document.converter.price.value;
+			// pprice = kprice/16;
+			// yprice = pprice/8;
+			flag = 1;
+			//console.log(kprice, pprice, yprice, data);
+
+		}
+		function calculate(){
+
+			if(flag){
+				kprice = document.converter.price.value;
+				pprice = kprice/16;
+				yprice = pprice/8;
+				// flag = 0;
+			}
+			else{
+				kprice = 1200000;
+				pprice = kprice/16;
+				yprice = pprice/8;
+			}
+
+			// document.body.style.background = "linear-gradient(rgba(200,200,200,0.5) rgba(200,200,200,0.5)) url('g5.jpg')";
+			// document.getElementById("html").style.backgroundImage = 'linear-gradient(rgba(200,200,200,0), rgba(200,200,200,0)),url(g5.jpg)';
+
+			var gram = document.converter.gram.value;
+			var kyat = gram/16.6; 
+			var kyatfloat = kyat - parseInt(kyat);
+
+			var pae = kyatfloat * 16;
+			var paefloat = pae - parseInt(pae);
+
+			var yway = paefloat * 8;
+			var ywayfloat = yway - parseInt(yway);
+
+			//console.log(kyat, pae, yway, data);
+
+			kprice = kprice * parseInt(kyat);
+			pprice = pprice * parseInt(pae);
+			yprice = yprice * parseInt(yway);
+			total = kprice + pprice + yprice;
+
+			document.converter.kyat.value = parseInt(kyat);
+			document.converter.pae.value = parseInt(pae);
+			document.converter.yway.value = parseInt(yway);
+			document.converter.total.value = total;
+
+			document.getElementById('result').innerHTML=`= ${kprice} /ks <br>`;
+			document.getElementById('presult').innerHTML=`= ${pprice} /ks <br>`;
+			document.getElementById('yresult').innerHTML=`= ${yprice} /ks <br>`;
+			//document.getElementById('tresult').innerHTML=`${total} /ks`;
+			//console.log(kprice, pprice, yprice, data);
+
+		}
+	</script>
+</head>
+<body>
+	<form id="Form" name="converter">
+		<dir class="heading">
+			<h1>Gram to KPY Converter</h1>
+		</dir>
+	<!-- 	<div class="space">
+			<br>
+		</div> -->
+		<div class="box">
+			<label>Price:</label><input type="number" id="price" placeholder="1200000" min="0" name="">
+		</div>
+		<div class="Button">
+			<input type="button" value="Update" onclick="update()">
+		</div>
+		<dir class="box">
+			<label>Gram:</label> <input type="number" id="gram" name="" min="0">
+		</dir>
+		<div class="Button">
+			<input type="button" value="Convert" onclick="calculate()">
+		</div>
+		<dir class="box">
+			<label>Kyat:</label> <input type="number" id="kyat" name="kyat">
+			<p id="result"></p>
+		</dir>
+		<dir class="box">
+			<label>Pae:</label> <input type="number" id="pae" name="pae">
+			<p id="presult"></p>
+		</dir>
+		<dir class="box">
+			<label>Yway:</label> <input type="number" id="yway" name="yway">
+			<p id="yresult"></p>
+		</dir>
+		<dir class="box">
+			<label>Total(ks):</label> <input type="number" id="total" name="">
+		</dir>
+		
+	</form>
